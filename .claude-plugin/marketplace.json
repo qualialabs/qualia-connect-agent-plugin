@@ -1,0 +1,6 @@
+{
+  "name": "qualia",
+  "description": "Plugins from Qualia for working with real estate closings.",
+  "owner": { "name": "Qualia", "url": "https://www.qualia.com" },
+  "plugins": [{ "name": "qualia-connect", "source": "./" }]
+}

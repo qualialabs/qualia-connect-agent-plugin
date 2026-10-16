@@ -1,0 +1,27 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "qualia-connect",
+  "version": "0.1.0",
+  "description": "Work your real estate closings from a conversation: see which orders need attention, check an order's status, tasks and messages, read the documents your title company shared, and message the people on the order.",
+  "author": { "name": "Qualia", "url": "https://www.qualia.com" },
+  "homepage": "https://connect.qualia.com",
+  "license": "MIT",
+  "keywords": ["real-estate", "title", "escrow", "closing", "qualia", "connect"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Qualia Connect",
+        "shortDescription": "Your closings, in a conversation",
+        "longDescription": "Qualia Connect is where real estate agents, lenders and other parties to a closing work with their title company. This plugin connects your assistant to your Connect account so you can ask which orders need attention, check an order's status, tasks and messages, read the documents your title company shared, and send a message to the people on an order.",
+        "developerName": "Qualia",
+        "category": "productivity",
+        "websiteURL": "https://www.qualia.com",
+        "defaultPrompt": [
+          "Which of my closings need attention today?",
+          "What is left to do on the Smith closing?",
+          "Summarize the title commitment on 123 Main St."
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "qualia-connect",
+  "displayName": "Qualia Connect",
+  "version": "0.1.0",
+  "description": "Work your real estate closings from a conversation: see which orders need attention, check an order's status, tasks and messages, read the documents your title company shared, and message the people on the order.",
+  "author": {
+    "name": "Qualia",
+    "url": "https://www.qualia.com"
+  },
+  "homepage": "https://connect.qualia.com",
+  "license": "MIT",
+  "keywords": [
+    "real-estate",
+    "title",
+    "escrow",
+    "closing",
+    "qualia",
+    "connect"
+  ],
+  "privacyPolicyUrl": "https://www.qualia.com/privacy-policy",
+  "termsOfServiceUrl": "https://www.qualia.com/connect-tos"
+}
