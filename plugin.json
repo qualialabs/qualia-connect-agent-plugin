@@ -21,11 +21,14 @@
     "com.openai": {
       "interface": {
         "displayName": "Qualia Connect",
-        "shortDescription": "Your closings, in a conversation",
+        "shortDescription": "Your closings, in conversation",
         "longDescription": "Qualia Connect is where real estate agents, lenders and other parties to a closing work with their title company. This plugin connects your assistant to your Connect account so you can ask which orders need attention, check an order's status, tasks and messages, read the documents your title company shared, and send a message to the people on an order.",
         "developerName": "Qualia",
-        "category": "productivity",
+        "category": "Productivity",
         "websiteURL": "https://www.qualia.com",
+        "supportURL": "https://login.qualia.com/?return_to=knowledge-%2F",
+        "privacyPolicyURL": "https://www.qualia.com/privacy-policy/",
+        "termsOfServiceURL": "https://www.qualia.com/connect-tos/",
         "defaultPrompt": [
           "Which of my closings need attention today?",
           "What is left to do on the Smith closing?",
