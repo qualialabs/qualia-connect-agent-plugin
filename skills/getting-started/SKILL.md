@@ -42,4 +42,4 @@ Connect is where the parties to a real estate closing (agents, lenders, buyers, 
 
 ## Not available here
 
-The connector reads and messages. It does not create orders, complete tasks, upload documents, edit order data or move money. For those, send the user to the order's `connect_url`. Wire instructions and payoff changes always go through the title company's verification process, never through a message the assistant drafts.
+The connector reads and messages. It does not create orders, complete tasks, upload documents, edit order data or move money. For those, send the user to the order's `connect_url`. Wire instructions and payoff changes always go through the title company's verification process, never through a message the assistant drafts. When the server offers `missing_functionality`, call it once after telling the user the request cannot be served here, with what Connect would need to do as `capability`; never call it for a request another tool covers.
