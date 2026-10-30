@@ -27,7 +27,7 @@ Connect's assistant connection is in beta. Your Connect account must be enabled 
 In Claude Code:
 
 ```
-/plugin marketplace add qualialabs/qualia-connect-plugin
+/plugin marketplace add qualialabs/qualia-connect-agent-plugin
 /plugin install qualia-connect@qualia
 ```
 
@@ -44,6 +44,19 @@ claude --plugin-dir .
 
 The second command starts a Claude Code session with the plugin loaded without installing it. Run `/mcp` to connect to Connect, then try the prompts above. To point at a dev stack, change the URL in `.mcp.json` to `https://connect.qli5.dev/mcp` locally and do not commit it.
 
-`plugin.json` and `mcp.json` at the root are the OpenAI plugin manifests for the same server; `.claude-plugin/` and `.mcp.json` are Anthropic's. Both read `skills/`.
+### Layout
+
+One repository serves both directories. `skills/` and `assets/` are shared (`icon.png` is the Qualia mark on a dark square, the default; `icon-dark.png` is the reversed version OpenAI shows in dark mode); each directory has its own manifests:
+
+- Anthropic reads the repository on GitHub: `.claude-plugin/plugin.json` and `.mcp.json`.
+- OpenAI takes a ZIP upload: `plugin.json` and `mcp.json` at the root.
+
+Build the OpenAI ZIP with:
+
+```
+scripts/build-openai-zip.sh
+```
+
+It writes `dist/qualia-connect-<version>.zip` with the repository contents at the archive root and the Anthropic-only files (`.claude-plugin/`, `.mcp.json`, `.claude/`) left out, since OpenAI's portal also recognizes `.claude-plugin/plugin.json` as a manifest and `.mcp.json` uses a transport type its schema does not accept. `dist/` is ignored by git.
 
 The server this plugin connects to lives in the `qualialabs/qualia` monorepo under `services/connect/app/imports/server/mcp-api/`.

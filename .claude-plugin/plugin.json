@@ -18,5 +18,6 @@
     "connect"
   ],
   "privacyPolicyUrl": "https://www.qualia.com/privacy-policy",
-  "termsOfServiceUrl": "https://www.qualia.com/connect-tos"
+  "termsOfServiceUrl": "https://www.qualia.com/connect-tos",
+  "icon": "./assets/icon.png"
 }
