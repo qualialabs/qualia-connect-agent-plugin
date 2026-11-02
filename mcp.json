@@ -3,7 +3,7 @@
   "mcpServers": {
     "connect": {
       "type": "streamable-http",
-      "url": "https://connect-api.qualia.com/mcp",
+      "url": "https://connect.qualia.com/mcp",
       "extensions": {
         "com.openai": {
           "auth": {

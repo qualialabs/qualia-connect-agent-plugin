@@ -16,7 +16,7 @@ The assistant sees only the orders, tasks, messages and documents you can see in
 
 ## Data
 
-The connector at `connect-api.qualia.com/mcp` authenticates you with OAuth against your own Connect account. Each request carries your request text and the order, thread or document identifiers it refers to. Connect returns order details, task and message content, and shared documents as your account is permitted to see them. The plugin stores nothing itself.
+The connector at `connect.qualia.com/mcp` authenticates you with OAuth against your own Connect account. Each request carries your request text and the order, thread or document identifiers it refers to. Connect returns order details, task and message content, and shared documents as your account is permitted to see them. The plugin stores nothing itself.
 
 ## Availability
 

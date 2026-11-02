@@ -2,7 +2,7 @@
   "mcpServers": {
     "connect": {
       "type": "http",
-      "url": "https://connect-api.qualia.com/mcp"
+      "url": "https://connect.qualia.com/mcp"
     }
   }
 }
