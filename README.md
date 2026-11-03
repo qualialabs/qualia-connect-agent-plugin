@@ -57,6 +57,6 @@ Build the OpenAI ZIP with:
 scripts/build-openai-zip.sh
 ```
 
-It writes `dist/qualia-connect-<version>.zip` with the repository contents at the archive root and the Anthropic-only files (`.claude-plugin/`, `.mcp.json`, `.claude/`) left out, since OpenAI's portal also recognizes `.claude-plugin/plugin.json` as a manifest and `.mcp.json` uses a transport type its schema does not accept. `dist/` is ignored by git.
+It writes `dist/qualia-connect-<version>.zip` with the repository contents at the archive root and the Anthropic-only files (`.claude-plugin/`, `.mcp.json`, `.claude/`) left out, since OpenAI's portal also recognizes `.claude-plugin/plugin.json` as a manifest and `.mcp.json` uses a transport type its schema does not accept. The archived `plugin.json` is the repository's with the `license` field removed, since the OpenAI listing should not carry one. `dist/` is ignored by git.
 
 The server this plugin connects to lives in the `qualialabs/qualia` monorepo under `services/connect/app/imports/server/mcp-api/`.
