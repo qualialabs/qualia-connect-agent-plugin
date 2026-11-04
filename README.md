@@ -1,30 +1,20 @@
-# Qualia Connect
+# Qualia Connect agent plugin
 
-Work your real estate closings from a conversation. Qualia Connect is where agents, lenders and other parties to a closing work with their title company. This plugin connects your assistant to your Connect account and teaches it how to use that connection well.
+Source for the Qualia Connect plugin in the Anthropic plugin directory and the OpenAI plugin directory. What the plugin does, and what users see in both listings, is in [plugin/README.md](plugin/README.md).
 
-## Use it
+## Layout
 
-Sign in to Connect through the plugin's connector, then ask in plain words:
+Everything that ships lives in `plugin/`. The Anthropic directory scans the whole plugin folder and holds a version for review when a script inside it can reach an image file, so build tooling stays out here at the repository root.
 
-- "Which of my closings need attention today?"
-- "What is left to do on the Smith purchase?"
-- "Who is the lender on 123 Main St, and when do we close?"
-- "Summarize the title commitment on the Oak Avenue order."
-- "Reply to the escrow officer that the buyer's insurance binder is on its way."
+- `plugin/` is the plugin folder, the one the directories list. Shared by both: `skills/`, `assets/` (the Qualia mark on a dark square, plus the reversed version OpenAI shows in dark mode) and the README, which the Anthropic directory uses as the listing text. Each directory has its own manifests:
+  - Anthropic reads the repository on GitHub: `plugin/.claude-plugin/plugin.json` and `plugin/.mcp.json`.
+  - OpenAI takes a ZIP upload: `plugin/plugin.json` and `plugin/mcp.json`, in the Agent Plugins format. The Anthropic directory recognizes `plugin.json` as an agent-plugins manifest and ignores it.
+- `.claude-plugin/marketplace.json` makes this repository a one-plugin Claude Code marketplace pointing at `./plugin`.
+- `scripts/build-openai-zip.sh` builds the OpenAI upload. `dist/` holds its output and is ignored by git.
 
-The assistant sees only the orders, tasks, messages and documents you can see in Connect. It shows you a full draft and asks before sending any message, and it cannot complete tasks, upload documents, change order data or move money.
+Keep the two manifests in step: `name`, `version` and `description` should match, and `version` is bumped in both for every release.
 
-## Data
-
-The connector at `connect.qualia.com/mcp` authenticates you with OAuth against your own Connect account. Each request carries your request text and the order, thread or document identifiers it refers to. Connect returns order details, task and message content, and shared documents as your account is permitted to see them. The plugin stores nothing itself.
-
-## Availability
-
-Connect's assistant connection is in beta. Your Connect account must be enabled for it. Contact your Qualia representative or support@qualia.com.
-
-## Install
-
-In Claude Code:
+## Install in Claude Code
 
 ```
 /plugin marketplace add qualialabs/qualia-connect-agent-plugin
@@ -38,25 +28,20 @@ While this repository is private, your GitHub account needs read access to it.
 The plugin is markdown and JSON with no build step. From a clone:
 
 ```
-claude plugin validate --strict .
-claude --plugin-dir .
+claude plugin validate --profile directory --strict plugin
+claude --plugin-dir plugin
 ```
 
-The second command starts a Claude Code session with the plugin loaded without installing it. Run `/mcp` to connect to Connect, then try the prompts above. To point at a dev stack, change the URL in `.mcp.json` to `https://connect.qli5.dev/mcp` locally and do not commit it.
+The first command runs the checks the Anthropic directory runs. The second starts a Claude Code session with the plugin loaded without installing it. Run `/mcp` to connect to Connect, then try the prompts in the plugin README. To point at a dev stack, change the URL in `plugin/.mcp.json` to `https://connect.qli5.dev/mcp` locally and do not commit it.
 
-### Layout
-
-One repository serves both directories. `skills/` and `assets/` are shared (`icon.png` is the Qualia mark on a dark square, the default; `icon-dark.png` is the reversed version OpenAI shows in dark mode); each directory has its own manifests:
-
-- Anthropic reads the repository on GitHub: `.claude-plugin/plugin.json` and `.mcp.json`.
-- OpenAI takes a ZIP upload: `plugin.json` and `mcp.json` at the root.
-
-Build the OpenAI ZIP with:
+## Build the OpenAI ZIP
 
 ```
 scripts/build-openai-zip.sh
 ```
 
-It writes `dist/qualia-connect-<version>.zip` with the repository contents at the archive root and the Anthropic-only files (`.claude-plugin/`, `.mcp.json`, `.claude/`) left out, since OpenAI's portal also recognizes `.claude-plugin/plugin.json` as a manifest and `.mcp.json` uses a transport type its schema does not accept. The archived `plugin.json` is the repository's with the `license` field removed, since the OpenAI listing should not carry one. `dist/` is ignored by git.
+It writes `dist/qualia-connect-<version>.zip` with the contents of `plugin/` at the archive root, leaving out the Anthropic-only files (`.claude-plugin/`, `.mcp.json`). The archived `plugin.json` is the repository's with the `license` field removed, since the OpenAI listing should not carry one. OpenAI's review test cases, release notes and commerce declaration live in `plugin/plugin.json` under `extensions.com.openai` and are imported with each upload.
 
-The server this plugin connects to lives in the `qualialabs/qualia` monorepo under `services/connect/app/imports/server/mcp-api/`.
+## Server
+
+The MCP server this plugin connects to lives in the `qualialabs/qualia` monorepo under `services/connect/app/imports/server/mcp-api/`.
