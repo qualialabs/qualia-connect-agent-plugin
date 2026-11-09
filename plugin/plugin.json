@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "qualia-connect",
-  "version": "0.1.0",
-  "description": "Work your real estate closings from a conversation: see which orders need attention, check an order's status, tasks and messages, read the documents your title company shared, and message the people on the order.",
+  "version": "0.1.1",
+  "description": "Work your real estate closings from a conversation: see which orders need attention, check an order's status, tasks and messages, read the documents your title company shared, message the people on the order, and place a new order with your title company.",
   "author": {
     "name": "Qualia",
     "url": "https://www.qualia.com"
@@ -22,7 +22,7 @@
       "interface": {
         "displayName": "Qualia Connect",
         "shortDescription": "Your closings, in conversation",
-        "longDescription": "Qualia Connect is where real estate agents, lenders and other parties to a closing work with their title company. This plugin connects your assistant to your Connect account so you can ask which orders need attention, check an order's status, tasks and messages, read the documents your title company shared, and send a message to the people on an order.",
+        "longDescription": "Qualia Connect is where real estate agents, lenders and other parties to a closing work with their title company. This plugin connects your assistant to your Connect account so you can ask which orders need attention, check an order's status, tasks and messages, read the documents your title company shared, send a message to the people on an order, and place a new order with a title company you work with. Every message and every order is shown to you in full and sent only after you confirm.",
         "developerName": "Qualia",
         "category": "Productivity",
         "websiteURL": "https://www.qualia.com",
@@ -71,6 +71,12 @@
               "prompt": "Which title companies am I working with, and which of my open orders are with each?",
               "tools_triggered": "list_title_companies, list_orders",
               "expected_behavior": "Names the title companies on the account's orders and groups the open orders under each by property address and status, matching what the test account sees in Connect."
+            },
+            {
+              "description": "Place an order only after the user confirms every detail.",
+              "prompt": "Place a purchase order for 456 Oak Avenue, Tampa, FL 33602 in Hillsborough County with the title company on my newest closing. Purchase price $450,000, loan amount $360,000.",
+              "tools_triggered": "get_current_user, list_orders, list_title_companies, place_order",
+              "expected_behavior": "Looks up the user's role, finds the title company on the newest order among the ones the user can order from, asks for anything that title company requires which the prompt did not give, then shows the full order (title company, purpose, property, the user's role, parties, price and loan details) and waits for an explicit yes before calling place_order once with a fresh idempotency_key. It then reports the new order's number and link, and the order appears in Connect for the test user and at the title company."
             }
           ],
           "negative": [
@@ -83,16 +89,16 @@
               "prompt": "Mark the survey task on my newest closing as complete."
             },
             {
-              "description": "Creating an order. The assistant says the connector cannot open orders or change order data, points the user to Connect or their title company to place it, and changes nothing.",
-              "prompt": "Open a new order for 456 Oak Avenue with the same title company as my newest closing."
+              "description": "Withdrawing an order. The assistant says an order placed in Connect cannot be cancelled or changed from here, tells the user to contact the title company or open the order in Connect, and calls no tool that writes.",
+              "prompt": "Cancel the order I just placed on 456 Oak Avenue."
             }
           ]
         },
         "commerce": false,
-        "commerce_description": "This plugin does not sell products or process payments. It reads closing information and sends messages on the user's behalf; all funds move through the title company outside the assistant."
+        "commerce_description": "This plugin does not sell products or process payments. It reads closing information, sends messages and places orders with the user's title company on the user's behalf; all funds move through the title company outside the assistant."
       },
       "publication": {
-        "release_notes": "First release. Connects your assistant to your Qualia Connect account: see which closings need attention, check an order's status, tasks and messages, read documents the title company shared, and message the people on an order after you confirm the draft."
+        "release_notes": "Place orders. Ask the assistant to place a new order with a title company you work with in Connect; it shows you the full order and places it only after you confirm. If you connected before this release, reconnect the Connect connector once to grant the new permission."
       }
     }
   }
