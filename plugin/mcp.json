@@ -8,7 +8,15 @@
         "com.openai": {
           "auth": {
             "type": "oauth",
-            "client": { "mode": "cimd" }
+            "client": { "mode": "cimd" },
+            "baseScopes": [
+              "orders:read",
+              "documents:read",
+              "profile:read",
+              "messages:write",
+              "feedback:write",
+              "orders:write"
+            ]
           }
         }
       }
