@@ -1,8 +1,8 @@
 {
   "name": "qualia-connect",
   "displayName": "Qualia Connect",
-  "version": "0.1.1",
-  "description": "Work your real estate closings from a conversation: see which orders need attention, check an order's status, tasks and messages, read the documents your title company shared, message the people on the order, and place a new order with your title company.",
+  "version": "0.1.2",
+  "description": "Work your real estate closings from a conversation: see which orders need attention, check an order's status, tasks and messages, read the documents your title company shared, message the people on the order, and place a new order with your title company. Connects only to Qualia's Connect MCP server at connect.qualia.com.",
   "author": {
     "name": "Qualia",
     "url": "https://www.qualia.com"
