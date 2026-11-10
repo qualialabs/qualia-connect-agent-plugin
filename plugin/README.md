@@ -19,11 +19,24 @@ The assistant sees only the orders, tasks, messages and documents you can see in
 
 When you ask for something Connect cannot do through an assistant yet, it tells you so and passes your request, in your words, to Qualia so Connect can add it. Nothing on your orders changes.
 
-## Data
+## What it runs, sends and fetches
 
-The plugin runs nothing on your computer and bundles no code. It declares one connection, the Qualia Connect MCP server at https://connect.qualia.com/mcp, which signs you in with OAuth to your own Connect account and asks your consent for each permission it uses. Requests carry the identifiers of the order, conversation or document you are asking about, the text of a message you confirmed, the details of an order you confirmed, and, only when the assistant reports something Connect cannot do, your request in your own words. Connect returns order details, tasks, messages and shared documents as your account is permitted to see them. The plugin stores nothing itself.
+The plugin is text: two manifests, this README and one skill. It bundles no code, defines no hooks, commands or agents, runs nothing on your computer and fetches nothing from the web. (`plugin.json` and `mcp.json` are the same plugin in the Agent Plugins format for the OpenAI directory; they declare the same server.)
 
-Qualia's [privacy policy](https://www.qualia.com/privacy-policy/) and the [Connect terms of service](https://www.qualia.com/connect-tos/) apply.
+It declares one connection, the Qualia Connect MCP server at https://connect.qualia.com/mcp, operated by Qualia. Everything the plugin sends goes to connect.qualia.com and nowhere else:
+
+| When | What is sent | What comes back |
+| --- | --- | --- |
+| Signing in | You sign in on Qualia's own pages at connect.qualia.com (the `/mcp/authorize` consent page and the `/mcp/oauth/token` endpoint). The assistant never sees your password. The consent page lists each permission and you choose which to grant. | A token for your account, held by your assistant |
+| Looking at your orders (`get_current_user`, `list_orders`, `get_order_details`, `list_title_companies`) | The identifier of the order you ask about and, for lists, paging and filter values such as whether to include closed orders or which state the property is in | Order details, parties, tasks, messages and the list of shared documents, as your account is permitted to see them |
+| Reading a document (`get_document`) | The document's identifier | The document's text |
+| Sending a message (`send_message`) | The message text you confirmed and the conversation or recipients you chose | Confirmation and a link to the order |
+| Placing an order (`place_order`) | The order details you confirmed: title company, property, your role, the parties, price and loan details, and a memo if you wrote one | The new order's number and a link to it |
+| Reporting something Connect cannot do (`missing_functionality`) | Your request in your own words and a one-line description of what Connect would need to do. This is the only call that carries your request text, and it goes to Qualia, not to anyone on your orders. | A sentence for the assistant to tell you |
+
+Links the server returns (`connect_url`, `complete_url`) point to pages on connect.qualia.com for you to open yourself; the assistant never fetches them. The other links in this README (qualia.com, login.qualia.com) are for you to read; the plugin sends nothing to them.
+
+Connect keeps a record of each call and its arguments, as it does for actions taken in the Connect app, under Qualia's [privacy policy](https://www.qualia.com/privacy-policy/). The plugin itself stores nothing. The [Connect terms of service](https://www.qualia.com/connect-tos/) apply.
 
 ## Install in Claude Code
 

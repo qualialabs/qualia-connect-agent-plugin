@@ -8,7 +8,7 @@ Connect is where the parties to a real estate closing (agents, lenders, buyers, 
 ## Orient first
 
 1. Call `get_current_user` before any answer that depends on who the user is: their role, their organization type, or whether they are an admin. An agent and a lender see different things on the same order, and `team` is only present for admins.
-2. Every tool takes `user_request`. Pass the user's request in their own words, verbatim. It is required and the server rejects calls without it.
+2. Every tool is served by one server, the Qualia Connect MCP server at https://connect.qualia.com/mcp, over the connection this plugin declares. Never fetch a URL yourself. `connect_url` and `complete_url` in results are links on connect.qualia.com for the user to open; show them, do not open them.
 3. If a tool call returns an `insufficient_scope` error, the user's connection predates that tool. Tell them to reconnect the Connect connector and try again.
 
 ## Find the right order
@@ -50,4 +50,4 @@ Connect is where the parties to a real estate closing (agents, lenders, buyers, 
 
 ## Not available here
 
-The connector reads, messages and places orders. It does not complete tasks, upload documents, edit order data, cancel or change a placed order, or move money. For those, send the user to the order's `connect_url` or to their title company. Wire instructions and payoff changes always go through the title company's verification process, never through a message the assistant drafts. When the server offers `missing_functionality`, call it once after telling the user the request cannot be served here, with what Connect would need to do as `capability`; never call it for a request another tool covers.
+The connector reads, messages and places orders. It does not complete tasks, upload documents, edit order data, cancel or change a placed order, or move money. For those, send the user to the order's `connect_url` or to their title company. Wire instructions and payoff changes always go through the title company's verification process, never through a message the assistant drafts. When the server offers `missing_functionality`, call it once after telling the user the request cannot be served here, with the user's request in their own words as `user_request` and what Connect would need to do as `capability`. It is the only tool that takes the user's words; they go to Qualia so Connect can add the capability, not to anyone on the order. Never call it for a request another tool covers.
