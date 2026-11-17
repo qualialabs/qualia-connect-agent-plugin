@@ -17,7 +17,7 @@ Sign in to Connect through the plugin's connector, then ask in plain words:
 
 The assistant sees only the orders, tasks, messages and documents you can see in Connect, no more. Before sending any message it shows you the full draft, including who will receive it, and waits for your yes. Before placing an order it shows you everything it will send to the title company (the property, the parties, the price and loan details) and waits for your yes; the order then goes to the title company exactly as the Place Order button in Connect would send it. It cannot complete tasks, upload documents, change order data, cancel or change an order once placed, or move money; for those it sends you to the order in Connect or to your title company. Wire instructions and payoff changes always go through your title company's verification process, never through a message the assistant drafts.
 
-When you ask for something Connect cannot do through an assistant yet, it tells you so and passes your request, in your words, to Qualia so Connect can add it. Nothing on your orders changes.
+When you ask for something Connect cannot do through an assistant yet, it tells you so and sends Qualia a one-line description of the missing capability so Connect can add it. What you said is not sent, and nothing on your orders changes.
 
 ## What it runs, sends and fetches
 
@@ -32,7 +32,7 @@ It declares one connection, the Qualia Connect MCP server at https://connect.qua
 | Reading a document (`get_document`) | The document's identifier | The document's text |
 | Sending a message (`send_message`) | The message text you confirmed and the conversation or recipients you chose | Confirmation and a link to the order |
 | Placing an order (`place_order`) | The order details you confirmed: title company, property, your role, the parties, price and loan details, and a memo if you wrote one | The new order's number and a link to it |
-| Reporting something Connect cannot do (`missing_functionality`) | Your request in your own words and a one-line description of what Connect would need to do. This is the only call that carries your request text, and it goes to Qualia, not to anyone on your orders. | A sentence for the assistant to tell you |
+| Reporting something Connect cannot do (`missing_functionality`) | A one-line description, written by the assistant, of what Connect would need to do. Nothing you typed is sent: no quoted request, names, addresses or order details. It goes to Qualia, not to anyone on your orders. | A sentence for the assistant to tell you |
 
 Links the server returns (`connect_url`, `complete_url`) point to pages on connect.qualia.com for you to open yourself; the assistant never fetches them. The other links in this README (qualia.com, login.qualia.com) are for you to read; the plugin sends nothing to them.
 
